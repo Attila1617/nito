@@ -1,16 +1,22 @@
-# This is a sample Python script.
+import requests
+import logging
+import aiogram
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from aiogram import Bot, Dispatcher, executor, types
+
+API_TOKEN = '6383505659:AAGzImP9ELdAeY1VrSflJba1gfSw9Qck0G0'
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+
+# Initialize bot and dispatcher
+bot = Bot(token=API_TOKEN)
+dp = Dispatcher(bot)
+
+@dp.message_handler(commands='start')
+async def send_welcome(message: types.Message):
+    await message.answer('Hello! This is nito. I will provide the information about music and music theory.')
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    executor.start_polling(dp, skip_updates=True)
